@@ -18,6 +18,7 @@
 # Ignore appSettings
 appSettings.json
 
+
 # Mono auto generated files
 mono_crash.*
 
