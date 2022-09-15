@@ -14,7 +14,9 @@
 *.userprefs
 
 #göm appsettings.json
-appsettings.json
+
+# Ignore local appSettings
+appSettings.Local.json
 
 # Mono auto generated files
 mono_crash.*
