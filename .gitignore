@@ -15,7 +15,7 @@
 
 #göm appsettings.json
 
-# Ignore local appSettings
+# Ignore appSettings
 appSettings.json
 
 # Mono auto generated files
