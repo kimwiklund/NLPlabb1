@@ -1,9 +1,8 @@
-﻿using System;
-using System.IO;
-using System.Text;
-using Microsoft.Extensions.Configuration;
-using Azure;
+﻿using Azure;
 using Azure.AI.TextAnalytics;
+using Microsoft.Extensions.Configuration;
+using System;
+using System.Text;
 
 
 namespace text_analysis
@@ -49,52 +48,52 @@ namespace text_analysis
                 // Get language
                 var analyzeText = Console.ReadLine();
                 DetectedLanguage detectedLanguage = CogClient.DetectLanguage(analyzeText);
-                    Console.WriteLine($"\nLanguage: {detectedLanguage.Name}");
+                Console.WriteLine($"\nLanguage: {detectedLanguage.Name}");
 
-                    // Get sentiment
-                    DocumentSentiment sentimentAnalysis = CogClient.AnalyzeSentiment(analyzeText);
-                    Console.WriteLine($"\nSentiment: {sentimentAnalysis.Sentiment}");
+                // Get sentiment
+                DocumentSentiment sentimentAnalysis = CogClient.AnalyzeSentiment(analyzeText);
+                Console.WriteLine($"\nSentiment: {sentimentAnalysis.Sentiment}");
 
 
-                    // Get key phrases
-                    KeyPhraseCollection phrases = CogClient.ExtractKeyPhrases(analyzeText);
-                    if (phrases.Count > 0)
+                // Get key phrases
+                KeyPhraseCollection phrases = CogClient.ExtractKeyPhrases(analyzeText);
+                if (phrases.Count > 0)
+                {
+                    Console.WriteLine("\nKey Phrases:");
+                    foreach (string phrase in phrases)
                     {
-                        Console.WriteLine("\nKey Phrases:");
-                        foreach (string phrase in phrases)
-                        {
-                            Console.WriteLine($"\t{phrase}");
-                        }
+                        Console.WriteLine($"\t{phrase}");
                     }
+                }
 
 
 
-                    // Get entities
-                    CategorizedEntityCollection entities = CogClient.RecognizeEntities(analyzeText);
-                    if (entities.Count > 0)
+                // Get entities
+                CategorizedEntityCollection entities = CogClient.RecognizeEntities(analyzeText);
+                if (entities.Count > 0)
+                {
+                    Console.WriteLine("\nEntities:");
+                    foreach (CategorizedEntity entity in entities)
                     {
-                        Console.WriteLine("\nEntities:");
-                        foreach (CategorizedEntity entity in entities)
-                        {
-                            Console.WriteLine($"\t{entity.Text} ({entity.Category})");
-                        }
+                        Console.WriteLine($"\t{entity.Text} ({entity.Category})");
                     }
+                }
 
 
-                    // Get linked entities
-                    LinkedEntityCollection linkedEntities = CogClient.RecognizeLinkedEntities(analyzeText);
-                    if (linkedEntities.Count > 0)
+                // Get linked entities
+                LinkedEntityCollection linkedEntities = CogClient.RecognizeLinkedEntities(analyzeText);
+                if (linkedEntities.Count > 0)
+                {
+                    Console.WriteLine("\nLinks:");
+                    foreach (LinkedEntity linkedEntity in linkedEntities)
                     {
-                        Console.WriteLine("\nLinks:");
-                        foreach (LinkedEntity linkedEntity in linkedEntities)
-                        {
-                            Console.WriteLine($"\t{linkedEntity.Name} ({linkedEntity.Url})");
-                        }
+                        Console.WriteLine($"\t{linkedEntity.Name} ({linkedEntity.Url})");
                     }
+                }
 
                 Console.WriteLine("Nicely Done.");
 
-                
+
             }
             catch (Exception ex)
             {
